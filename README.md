@@ -62,3 +62,12 @@ stack of tools
     print(r)
 
 ```
+
+### Para executar uma query aleatóriamente
+```
+client = bigquery.Client()
+stream = Update(PROJECT_ID).set_client(client).set_table("accessClassroomByUsers").set_dataset(DB)
+
+stream.set_sql("TRUNCATE {}".format(stream.get_tableid() ) )
+stream.execute_query()
+```
