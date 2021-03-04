@@ -4,6 +4,9 @@ stack of tools
 
 
 # MyBigQuery lib
+
+- import: `from google.cloud import bigquery`
+
 ### Para inserir no banco
 
     ```
