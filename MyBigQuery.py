@@ -6,6 +6,7 @@ class Stream():
         self.dataset = False
         self.table = False
         self.errors = False
+        self.sql = False
         
     def set_dataset(self,dataset):
         self.dataset =  dataset or False
@@ -17,6 +18,10 @@ class Stream():
 
     def set_client(self,client):
         self.client =  client or False
+        return self
+
+    def set_sql(self,sql):
+        self.sql =  sql or False
         return self
         
     def get_tableid(self):
