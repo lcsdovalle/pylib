@@ -71,3 +71,29 @@ stream = Update(PROJECT_ID).set_client(client).set_table("accessClassroomByUsers
 stream.set_sql("TRUNCATE {}".format(stream.get_tableid() ) )
 stream.execute_query()
 ```
+
+
+# Mailing 
+**Adiciona recurso para o envio de e-mails NO DJANGO**
+
+# Implantação
+- Adicionar ao arquivo settings.py as variáveis:
+    ```
+        MAILING_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxCuE-Y3CbZW4r6ir0IQBkgurS-9z9c3IvzbqYfDEY_lz5KfbAq4HrC2A/exec'
+        MAILING_JSON = BASE_DIR / 'core/files/mailing.json'
+        MAILING_FROM = 'no-reply@gsaladeaula.com.br'
+    ```
+    - MAILING_ENDPOINT: webservice que recebe o payload para o envio do email. Exemplo:https://gitlab.com/-/snippets/2076852
+    - MAILING_JSON: caminho para o arquivo do projeto em cloud, vale ressaltar que neste caso utilizar conta de serviço
+    - MAILING_FROM: conta que será impersonada para enviar os e-mails
+
+### Exemplo de uso
+    ```
+        from pylib.mailing import Email
+        mail = Email()
+        mail.setAssunto("TESTANDO MAILING")
+        mail.addRementente("lucas@getedu.com.br")
+        mail.addRementente("lucas@gsaladeaula.com.br")
+        mail.setMensagem('core/confirmacao.html')
+        mail.enviarGmail()
+    ```
