@@ -49,16 +49,18 @@ class Reader(Stream):
 
     def build_query(self,**kwargs):
         """ Build sql instruction """
-    ## where, what
-    ## what is * by default
-    ## grouped_by = 'data,chromebooks' defines the result's order
+        ## where, what
+        ## what is * by default
+        ## grouped_by = 'data,chromebooks' defines the result's order
         what = kwargs.get("what","*")
         group_by = kwargs.get("group_by",'')
-        where = kwargs.get("where",'')
-        self.sql = "SELECT {} FROM {} WHERE {} {} ".format(
+        where = kwargs.get("where",False)
+        condicao_busca = "WHERE {}".format(where) if where else ""
+        
+        self.sql = "SELECT {} FROM {} {} {} ".format(
             what,
             self.get_tableid(),
-            where,
+            condicao_busca,
             group_by
         )
 
