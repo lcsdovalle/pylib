@@ -7,6 +7,7 @@ class Stream():
         self.table = False
         self.errors = False
         self.sql = False
+        self.client = False
         
     def set_dataset(self,dataset):
         self.dataset =  dataset or False
