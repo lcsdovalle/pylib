@@ -1,7 +1,17 @@
 # pylib
 stack of tools
 
+# Mongo lib
 
+### Para criar uma coleção e adicionar um documento logo em seguida.
+
+    ```
+        from pylib.mongo import Mongo
+        mongo = Mongo(string_conexao=config.string_conexao,db='dashboard')
+        mongo.criarColecao("Lucas")
+        mongo.inserirUmRegistro({"Nome":"Lucas Thomas"})
+        print(mongo.ultimoRegistro)
+    ```
 
 # MyBigQuery lib
 
