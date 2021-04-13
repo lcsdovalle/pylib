@@ -8,7 +8,7 @@ stack of tools
     ```
         from pylib.mongo import Mongo
         mongo = Mongo(string_conexao=config.string_conexao,db='dashboard')
-        mongo.criarColecao("Lucas")
+        mongo.criarColecao("Funcionario")
         mongo.inserirUmRegistro({"Nome":"Lucas Thomas"})
         print(mongo.ultimoRegistro)
     ```
