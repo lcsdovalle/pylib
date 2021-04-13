@@ -12,6 +12,14 @@ stack of tools
         mongo.inserirUmRegistro({"Nome":"Lucas Thomas"})
         print(mongo.ultimoRegistro)
     ```
+### Cria vários registros em uma coleção pre existente
+    ```
+        from pylib.mongo import Mongo
+        mongo = Mongo(string_conexao=config.string_conexao,db='dashboard')
+        mongo.usarColecao("Funcionarios")
+        mongo.inserirVariosRegistros([{"Nome":"Lucas Thomas"},{"Nome":"Ennio Sousa"}])
+        print(mongo.ultimoRegistro.inserted_ids)
+    ```
 
 # MyBigQuery lib
 
