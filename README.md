@@ -4,7 +4,11 @@ stack of tools
 # Mongo lib
 
 # Dependências 
-    pip install --upgrade google-api-core google-api-python-client google-auth google-auth-httplib2 google-auth-oauthlibgoogle-cloud-core==1.6.0
+    pip install virtualenv
+
+    virtualenv venv
+
+    pip install --upgrade google-api-core google-api-python-client google-auth google-auth-httplib2 google-auth-oauthlib google-cloud-core
 
 ### Para criar uma coleção e adicionar um documento logo em seguida.
 
