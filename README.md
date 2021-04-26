@@ -28,6 +28,29 @@ stack of tools
         print(mongo.ultimoRegistro.inserted_ids)
     ```
 
+### Busca todos os dados de uma coleção
+    ```
+        from pylib.mongo import MongoDrive
+        mongo = MongoDrive(string_conexao=config.string_conexao,db='dashboard')
+        mongo.usarColecao("dashboard")
+        mongo.buscarTudo()
+        for i in mongo.ultimosRegistros:
+            print(i.get("Nome))
+        print(mongo.ultimoRegistro.inserted_ids)
+    ```
+
+### Busca  alguns dados da coleção
+    ```
+        from pylib.mongo import MongoDrive
+        mongo = MongoDrive(string_conexao=config.string_conexao,db='dashboard')
+        mongo.usarColecao("dashboard")
+        mongo.buscarPor(params={"_id":0,"Nome":1})
+        for i in mongo.ultimosRegistros:
+            print(i.get("Nome"))
+        print(mongo.ultimoRegistro.inserted_ids)
+    ```
+
+
 # MyBigQuery lib
 
 - import: `from google.cloud import bigquery`
