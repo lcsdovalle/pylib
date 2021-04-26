@@ -12,24 +12,24 @@ stack of tools
 
 ### Para criar uma coleção e adicionar um documento logo em seguida.
 
-    ```
+    
         from pylib.mongo import MongoDrive
         mongo = MongoDrive(string_conexao=config.string_conexao,db='dashboard')
         mongo.criarColecao("Funcionario")
         mongo.inserirUmRegistro({"Nome":"Lucas Thomas"})
         print(mongo.ultimoRegistro)
-    ```
+    
 ### Cria vários registros em uma coleção pre existente
-    ```
+    
         from pylib.mongo import MongoDrive
         mongo = MongoDrive(string_conexao=config.string_conexao,db='dashboard')
         mongo.usarColecao("Funcionarios")
         mongo.inserirVariosRegistros([{"Nome":"Lucas Thomas"},{"Nome":"Ennio Sousa"}])
         print(mongo.ultimoRegistro.inserted_ids)
-    ```
+    
 
 ### Busca todos os dados de uma coleção
-    ```
+    
         from pylib.mongo import MongoDrive
         mongo = MongoDrive(string_conexao=config.string_conexao,db='dashboard')
         mongo.usarColecao("dashboard")
@@ -37,10 +37,10 @@ stack of tools
         for i in mongo.ultimosRegistros:
             print(i.get("Nome))
         print(mongo.ultimoRegistro.inserted_ids)
-    ```
+    
 
 ### Busca  alguns dados da coleção
-    ```
+    
         from pylib.mongo import MongoDrive
         mongo = MongoDrive(string_conexao=config.string_conexao,db='dashboard')
         mongo.usarColecao("dashboard")
@@ -48,7 +48,7 @@ stack of tools
         for i in mongo.ultimosRegistros:
             print(i.get("Nome"))
         print(mongo.ultimoRegistro.inserted_ids)
-    ```
+    
 
 
 # MyBigQuery lib
@@ -57,7 +57,7 @@ stack of tools
 
 ### Para inserir no banco
 
-    ```
+    
         from flask.pylib.MyBigQuery import Stream
         linhas = [
             {"data":"2021-01-01","professores":4,"alunos":10}
@@ -73,10 +73,10 @@ stack of tools
             "Inserido com sucesso"
         else:
             print(stream.errors)
-    ```
+    
 
 ### Para ler do banco 
-```
+
     client = bigquery.Client()
     stream = Reader(PROJECT_ID).set_client(client).set_table("chrome_atividade").set_dataset(DB)
 
@@ -93,10 +93,10 @@ stack of tools
         print(row)
         print("name={}, count={}".format(row[1], len(row)))
 
-```
+
 
 ### Para atualizar os dados
-``` 
+ 
     client = bigquery.Client()
     stream = Update(PROJECT_ID).set_client(client).set_table("accessClassroomByUsers").set_dataset(DB)
 
@@ -109,16 +109,16 @@ stack of tools
 
     print(r)
 
-```
+
 
 ### Para executar uma query aleatóriamente
-```
+
 client = bigquery.Client()
 stream = Update(PROJECT_ID).set_client(client).set_table("accessClassroomByUsers").set_dataset(DB)
 
 stream.set_sql("TRUNCATE {}".format(stream.get_tableid() ) )
 stream.execute_query()
-```
+
 
 
 # Mailing 
@@ -126,17 +126,17 @@ stream.execute_query()
 
 # Implantação
 - Adicionar ao arquivo settings.py as variáveis:
-    ```
+    
         MAILING_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxCuE-Y3CbZW4r6ir0IQBkgurS-9z9c3IvzbqYfDEY_lz5KfbAq4HrC2A/exec'
         MAILING_JSON = BASE_DIR / 'core/files/mailing.json'
         MAILING_FROM = 'no-reply@gsaladeaula.com.br'
-    ```
+    
     - MAILING_ENDPOINT: webservice que recebe o payload para o envio do email. Exemplo:https://gitlab.com/-/snippets/2076852
     - MAILING_JSON: caminho para o arquivo do projeto em cloud, vale ressaltar que neste caso utilizar conta de serviço
     - MAILING_FROM: conta que será impersonada para enviar os e-mails
 
 ### Exemplo de uso
-    ```
+    
         from pylib.mailing import Email
         mail = Email()
         mail.setAssunto("TESTANDO MAILING")
@@ -144,4 +144,4 @@ stream.execute_query()
         mail.addRementente("lucas@gsaladeaula.com.br")
         mail.setMensagem('core/confirmacao.html')
         mail.enviarGmail()
-    ```
+    
