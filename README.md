@@ -13,16 +13,16 @@ stack of tools
 ### Para criar uma coleção e adicionar um documento logo em seguida.
 
     ```
-        from pylib.mongo import Mongo
-        mongo = Mongo(string_conexao=config.string_conexao,db='dashboard')
+        from pylib.mongo import MongoDrive
+        mongo = MongoDrive(string_conexao=config.string_conexao,db='dashboard')
         mongo.criarColecao("Funcionario")
         mongo.inserirUmRegistro({"Nome":"Lucas Thomas"})
         print(mongo.ultimoRegistro)
     ```
 ### Cria vários registros em uma coleção pre existente
     ```
-        from pylib.mongo import Mongo
-        mongo = Mongo(string_conexao=config.string_conexao,db='dashboard')
+        from pylib.mongo import MongoDrive
+        mongo = MongoDrive(string_conexao=config.string_conexao,db='dashboard')
         mongo.usarColecao("Funcionarios")
         mongo.inserirVariosRegistros([{"Nome":"Lucas Thomas"},{"Nome":"Ennio Sousa"}])
         print(mongo.ultimoRegistro.inserted_ids)
