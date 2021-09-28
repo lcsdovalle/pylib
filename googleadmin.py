@@ -6,17 +6,54 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 from google.oauth2 import service_account
 import googleapiclient.discovery
+import json
+
 
 class User():
     def __init__(self,service):
         self.service = service
         self.ou = False
         self.user =  False
+        self.todos_usuarios = {}
+    
+    def gravar(self, usuarios):
+        if usuarios:
+            todos = {}
+            for u in usuarios:
+                u
+                todos[u.get('primaryEmail')] = u
+            
+            json.dump(todos,open('/project/db_gsuite.json','w',encoding="utf-8"))
+            
+    def carregar_todos_usuarios(self):
+        
+        total = 0
+        iniciado = False
+        pagetoken = True
+        usuarios = []
+        while pagetoken is not None:
+            if not iniciado:
+                r = self.service.users().list(customer="my_customer").execute()
+                pagetoken = r.get("nextPageToken",None)
+                iniciado = True
+                usuarios += r.get('users',[]) 
+                total += len(r.get('users',[]))
+            else:
+                r = self.service.users().list(customer="my_customer",pageToken=pagetoken,maxResults=500,query="isSuspended=false").execute()
+                pagetoken = r.get("nextPageToken",None)
+                usuarios += r.get('users',[])
+                total += len(r.get('users',[]))
+            if not pagetoken or pagetoken is None or 'users' not in r:
+                break
+            print(total, 'usuários encontrados')
+        self.gravar(usuarios) 
+        # return json.load(open("db_gsuite.json",'r',encoding="utf-8"))
 
+        
     def carregar_usuario(self,user_email):
         try:
-            r = self.service.users().get(userKey=user_email,projection="full").execute()
-            self.user = r
+            r = json.load(open("/project/db_gsuite.json",'r',encoding="utf-8"))
+            self.user = r[user_email]
             return self
         except Exception as e:
             return False
@@ -28,7 +65,17 @@ class User():
     
     def ler_inep(self):
         if not self.user:
-            return False
+            return "000000"
+        if 'aluno' in self.user['primaryEmail']:
+            if "organizations" not in self.user:
+                return "000000"
+            
+            if 'department' not in self.user['organizations'][0]:
+                return "000000"
+            
+            return self.user.get("organizations")[0].get('department')
+        
+
         r = self.user['customSchemas'] if 'customSchemas' in self.user else False
         if r:
             r = r.get('Escolas',False)
@@ -37,7 +84,7 @@ class User():
                 if r:
                     return r
 
-        return False
+        return "000000"
 class ChromeBooks():
     def __init__(self,service):
         self.service = service or False
