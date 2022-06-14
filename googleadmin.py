@@ -22,7 +22,7 @@ class User():
             for u in usuarios:
                 todos[u.get('primaryEmail')] = u
             
-            json.dump(todos,open('/project/db_gsuite.json','w',encoding="utf-8"))
+            json.dump(todos,open('../project/db_gsuite.json','w',encoding="utf-8"))
             
     def carregar_todos_usuarios(self):
         
@@ -55,7 +55,7 @@ class User():
         
     def carregar_usuario(self,user_email):
         try:
-            r = json.load(open("/project/db_gsuite.json",'r',encoding="utf-8"))
+            r = json.load(open("../project/db_gsuite.json",'r',encoding="utf-8"))
             self.user = r[user_email]
             return self
         except Exception as e:
