@@ -127,9 +127,9 @@ stream.execute_query()
 # Implantação
 - Adicionar ao arquivo settings.py as variáveis:
     
-        MAILING_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxCuE-Y3CbZW4r6ir0IQBkgurS-9z9c3IvzbqYfDEY_lz5KfbAq4HrC2A/exec'
+        MAILING_ENDPOINT = ''
         MAILING_JSON = BASE_DIR / 'core/files/mailing.json'
-        MAILING_FROM = 'no-reply@gsaladeaula.com.br'
+        MAILING_FROM = 'no-reply@domain.com'
     
     - MAILING_ENDPOINT: webservice que recebe o payload para o envio do email. Exemplo:https://gitlab.com/-/snippets/2076852
     - MAILING_JSON: caminho para o arquivo do projeto em cloud, vale ressaltar que neste caso utilizar conta de serviço
