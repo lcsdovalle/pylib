@@ -140,8 +140,8 @@ stream.execute_query()
         from pylib.mailing import Email
         mail = Email()
         mail.setAssunto("TESTANDO MAILING")
-        mail.addRementente("lucas@getedu.com.br")
-        mail.addRementente("lucas@gsaladeaula.com.br")
+        mail.addRementente("")
+        mail.addRementente("")
         mail.setMensagem('core/confirmacao.html')
         mail.enviarGmail()
     
