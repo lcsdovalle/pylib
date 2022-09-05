@@ -23,7 +23,7 @@ class User():
                 u
                 todos[u.get('primaryEmail')] = u
             
-            json.dump(todos,open('/project/db_gsuite.json','w',encoding="utf-8"))
+            json.dump(todos,open('./project/db_gsuite.json','w',encoding="utf-8"))
             
     def carregar_todos_usuarios(self):
         
@@ -32,20 +32,24 @@ class User():
         pagetoken = True
         usuarios = []
         while pagetoken is not None:
-            if not iniciado:
-                r = self.service.users().list(customer="my_customer").execute()
-                pagetoken = r.get("nextPageToken",None)
-                iniciado = True
-                usuarios += r.get('users',[]) 
-                total += len(r.get('users',[]))
-            else:
-                r = self.service.users().list(customer="my_customer",pageToken=pagetoken,maxResults=500,query="isSuspended=false").execute()
-                pagetoken = r.get("nextPageToken",None)
-                usuarios += r.get('users',[])
-                total += len(r.get('users',[]))
-            if not pagetoken or pagetoken is None or 'users' not in r:
-                break
-            print(total, 'usuários encontrados')
+            try:
+                if not iniciado:
+                    r = self.service.users().list(customer="my_customer", maxResults=500, query="isSuspended=false").execute()
+                    pagetoken = r.get("nextPageToken",None)
+                    iniciado = True
+                    usuarios += r.get('users',[]) 
+                    total += len(r.get('users',[]))
+                else:
+                    r = self.service.users().list(customer="my_customer",pageToken=pagetoken,maxResults=500,query="isSuspended=false").execute()
+                    pagetoken = r.get("nextPageToken",None)
+                    usuarios += r.get('users',[])
+                    total += len(r.get('users',[]))
+                if not pagetoken or pagetoken is None or 'users' not in r:
+                    break
+                print(total, 'usuários encontrados')
+            except Exception as e:
+                print(e)
+                continue
         self.gravar(usuarios) 
         # return json.load(open("db_gsuite.json",'r',encoding="utf-8"))
 
